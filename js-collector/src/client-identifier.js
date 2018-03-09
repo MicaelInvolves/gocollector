@@ -1,5 +1,7 @@
 import uuid from 'uuid/v4';
 
+const DAYS = 24 * 60 * 60 * 1000;
+
 function getCookie(cname, document) {
   let name = `${cname}=`;
   let cookies = document.cookie.split(';');
@@ -30,7 +32,11 @@ export default class ClientGateway {
       let storedId = getCookie('client', this._document);
 
       this._id = storedId || uuid();
-      this._document.cookie = `client=${this._id}; expires=${this._dateProvider.get()}`;
+
+      const todayTime = this._dateProvider.get().getTime();
+      const expires = new Date(todayTime + (30 * DAYS));
+
+      this._document.cookie = `client=${this._id}; expires=${expires.toUTCString()}`;
     }
     return this._id;
   }

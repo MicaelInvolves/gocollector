@@ -5,7 +5,7 @@ import ClientGateway from '../src/client-identifier';
 
 chai.should();
 
-let gateway, documentMock, dateProviderMock;
+let identifier, documentMock, dateProviderMock;
 
 describe('ClientGateway', () => {
 
@@ -30,29 +30,29 @@ describe('ClientGateway', () => {
       }
     };
 
-    gateway = new ClientGateway(documentMock, dateProviderMock);
+    identifier = new ClientGateway(documentMock, dateProviderMock);
   });
 
   it('should return a new uuid', () => {
-    const id = gateway.id();
+    const id = identifier.id();
 
     id.should.be.a('string');
     id.should.have.length(36);
   });
 
   it('should always return the same uuid', () => {
-    gateway.id().should.be.equal(gateway.id());
+    identifier.id().should.be.equal(identifier.id());
   });
 
   it('should store the id with cookies', () => {
-    const id = gateway.id();
+    const id = identifier.id();
 
-    documentMock.value.should.be.equal(`client=${id}; expires=Thu Nov 23 1989 12:00:00 GMT-0200 (-02)`);
+    documentMock.value.should.be.equal(`client=${id}; expires=Sat, 23 Dec 1989 14:00:00 GMT`);
   });
 
   it('should store the id just one time', () => {
-    gateway.id();
-    gateway.id();
+    identifier.id();
+    identifier.id();
 
     documentMock.setterCount.should.be.equal(1);
   });
@@ -60,8 +60,8 @@ describe('ClientGateway', () => {
   it('should check if id is stored already', () => {
     documentMock.value = 'client=already-stored-cookie; expires=Thu Nov 23 1989 12:00:00 GMT-0200 (-02)';
 
-    gateway.id();
-    const id = gateway.id();
+    identifier.id();
+    const id = identifier.id();
 
     documentMock.getterCount.should.be.equal(1);
     id.should.be.equal('already-stored-cookie');

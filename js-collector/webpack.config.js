@@ -8,10 +8,17 @@ const pkg = require('./package.json');
 
 let libraryName = pkg.name;
 
-let plugins = [], outputFile;
+let plugins = [],
+  outputFile;
+
+plugins.push(new webpack.DefinePlugin({
+  'API_PATH': JSON.stringify('//mockedapi.com')
+}));
 
 if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
+  plugins.push(new UglifyJsPlugin({
+    minimize: true
+  }));
   outputFile = libraryName + '.min.js';
 } else {
   outputFile = libraryName + '.js';
@@ -28,8 +35,7 @@ const config = {
     umdNamedDefine: true
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /(\.jsx|\.js)$/,
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/
