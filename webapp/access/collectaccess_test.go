@@ -32,16 +32,16 @@ var _ = Describe("Collect Access Use Case", func() {
 
 			response, err := useCase.Collect(input)
 
-			Expect(response).To(Not(BeNil()))
-			Expect(gateway.SaveCount).To(Equal(1))
+			Expect(response).ShouldNot(BeNil())
+			Expect(gateway.SaveCount).Should(Equal(1))
 
-			Expect(response.Access).To(Not(BeNil()))
-			Expect(response.Access).To(Equal(gateway.SavedAccess))
-			Expect(response.Access.ClientId).To(Equal(input.clientId))
-			Expect(response.Access.Path).To(Equal(input.path))
-			Expect(response.Access.Date).To(Equal(input.date))
+			Expect(response.Access).ShouldNot(BeNil())
+			Expect(response.Access).Should(Equal(gateway.SavedAccess))
+			Expect(response.Access.ClientId).Should(Equal(input.clientId))
+			Expect(response.Access.Path).Should(Equal(input.path))
+			Expect(response.Access.Date).Should(Equal(input.date))
 
-			Expect(err).To(BeNil())
+			Expect(err).Should(BeNil())
 		})
 
 		It("Should propagate gateway error on save fail", func() {
@@ -52,8 +52,8 @@ var _ = Describe("Collect Access Use Case", func() {
 
 			response, err := useCase.Collect(input)
 
-			Expect(response).To(BeNil())
-			Expect(err).To(Equal(saveErr))
+			Expect(response).Should(BeNil())
+			Expect(err).Should(Equal(saveErr))
 		})
 
 		It("Should validate missing ClientId", func() {
@@ -79,9 +79,9 @@ var _ = Describe("Collect Access Use Case", func() {
 })
 
 func assertErrorResponse(response *access.CollectAccessResponse, err, expectedError error, expectedMessage string) {
-	Expect(response).To(BeNil())
-	Expect(err).To(Equal(expectedError))
-	Expect(err.Error()).To(Equal(expectedMessage))
+	Expect(response).Should(BeNil())
+	Expect(err).Should(Equal(expectedError))
+	Expect(err.Error()).Should(Equal(expectedMessage))
 }
 
 /* =============== MOCKS =============== */
