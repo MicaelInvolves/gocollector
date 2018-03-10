@@ -6,6 +6,13 @@ type Subscriber struct {
 	Email    string
 }
 
+type SubscribersAccessData struct {
+	Subscriber  *Subscriber
+	AccessCount int
+	AccessPaths []string
+}
+
 type Gateway interface {
 	Save(subscriber *Subscriber) error
+	All() ([]*SubscribersAccessData, error)
 }

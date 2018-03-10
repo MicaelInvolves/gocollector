@@ -125,14 +125,26 @@ func NewSubscribeInputMock(clientId, name, email string) *SubscribeInputMock {
 type SubscriberGatewayMock struct {
 	SavedSubscriber *Subscriber
 	SaveCount       int
-	Err             error
+
+	AllCount int
+	AllData  []*SubscribersAccessData
+
+	Err error
 }
 
 func (this *SubscriberGatewayMock) Save(subscriber *Subscriber) error {
+	this.SaveCount++
 	if this.Err != nil {
 		return this.Err
 	}
-	this.SaveCount++
 	this.SavedSubscriber = subscriber
 	return nil
+}
+
+func (this *SubscriberGatewayMock) All() ([]*SubscribersAccessData, error) {
+	this.AllCount++
+	if this.Err != nil {
+		return nil, this.Err
+	}
+	return this.AllData, nil
 }
