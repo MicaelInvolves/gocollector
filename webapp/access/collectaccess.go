@@ -10,7 +10,7 @@ var MissingClientIdError = errors.New("Access missing field: ClientId")
 var MissingPathError = errors.New("Access missing field: Path")
 
 type CollectAccessUseCase struct {
-	Gateway AccessGateway
+	Gateway Gateway
 }
 
 func (this *CollectAccessUseCase) Collect(input CollectAccessInput) (*CollectAccessResponse, error) {

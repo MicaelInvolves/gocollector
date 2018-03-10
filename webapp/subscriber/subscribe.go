@@ -10,7 +10,7 @@ var MissingNameError = errors.New("subscriber missing field: Name")
 var MissingEmailError = errors.New("subscriber missing field: Email")
 
 type SubscribeUseCase struct {
-	Gateway SubscriberGateway
+	Gateway Gateway
 }
 
 func (this *SubscribeUseCase) Subscribe(input SubscribeInput) (*SubscribeResponse, error) {

@@ -9,6 +9,6 @@ type Access struct {
 	Date     time.Time
 }
 
-type AccessGateway interface {
+type Gateway interface {
 	Save(access *Access) error
 }

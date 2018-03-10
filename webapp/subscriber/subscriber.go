@@ -6,6 +6,6 @@ type Subscriber struct {
 	Email    string
 }
 
-type SubscriberGateway interface {
+type Gateway interface {
 	Save(subscriber *Subscriber) error
 }
