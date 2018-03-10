@@ -4,11 +4,12 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"errors"
 	"github.com/gesiel/go-collect/webapp/access"
 	"time"
 )
 
-var _ = Describe("Access Use Case", func() {
+var _ = Describe("Collect Access Use Case", func() {
 	var (
 		useCase    *access.CollectAccessUseCase
 		input      *CollectAccessInputMock
@@ -35,11 +36,24 @@ var _ = Describe("Access Use Case", func() {
 			Expect(gateway.SaveCount).To(Equal(1))
 
 			Expect(response.Access).To(Not(BeNil()))
-			Expect(response.Access.ClientId).To(Equal("id"))
-			Expect(response.Access.Path).To(Equal("path/to/resource"))
-			Expect(response.Access.Date).To(Equal(mockedDate))
+			Expect(response.Access).To(Equal(gateway.SavedAccess))
+			Expect(response.Access.ClientId).To(Equal(input.clientId))
+			Expect(response.Access.Path).To(Equal(input.path))
+			Expect(response.Access.Date).To(Equal(input.date))
 
 			Expect(err).To(BeNil())
+		})
+
+		It("Should propagate gateway error on save fail", func() {
+			input = NewCollectAccessInputMock("id", "path/to/resource", mockedDate)
+
+			saveErr := errors.New("BOOM!")
+			gateway.Err = saveErr
+
+			response, err := useCase.Collect(input)
+
+			Expect(response).To(BeNil())
+			Expect(err).To(Equal(saveErr))
 		})
 
 		It("Should validate missing ClientId", func() {
@@ -103,10 +117,16 @@ func NewCollectAccessInputMock(id, path string, date time.Time) *CollectAccessIn
 /* ======== GATEWAY ======== */
 
 type AccessGatewayMock struct {
-	SaveCount int
+	SavedAccess *access.Access
+	SaveCount   int
+	Err         error
 }
 
 func (this *AccessGatewayMock) Save(access *access.Access) error {
+	if this.Err != nil {
+		return this.Err
+	}
 	this.SaveCount++
+	this.SavedAccess = access
 	return nil
 }

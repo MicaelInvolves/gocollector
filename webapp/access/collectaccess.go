@@ -2,7 +2,7 @@ package access
 
 import (
 	"errors"
-	"strings"
+	"github.com/gesiel/go-collect/webapp/utils"
 	"time"
 )
 
@@ -20,7 +20,10 @@ func (this *CollectAccessUseCase) Collect(input CollectAccessInput) (*CollectAcc
 	}
 
 	access := createAccessFor(input)
-	this.Gateway.Save(access)
+	err = this.Gateway.Save(access)
+	if err != nil {
+		return nil, err
+	}
 
 	return &CollectAccessResponse{
 		Access: access,
@@ -38,20 +41,15 @@ type CollectAccessInput interface {
 }
 
 func validateInput(input CollectAccessInput) error {
-	if !isValidString(input.ClientId()) {
+	if !utils.IsValidValue(input.ClientId()) {
 		return MissingClientIdError
 	}
 
-	if !isValidString(input.Path()) {
+	if !utils.IsValidValue(input.Path()) {
 		return MissingPathError
 	}
 
 	return nil
-}
-
-func isValidString(value string) bool {
-	trim := strings.Trim(value, " ")
-	return len(trim) > 0
 }
 
 func createAccessFor(input CollectAccessInput) *Access {
