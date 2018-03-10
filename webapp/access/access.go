@@ -8,3 +8,7 @@ type Access struct {
 	Path     string
 	Date     time.Time
 }
+
+type AccessGateway interface {
+	Save(access *Access) error
+}
