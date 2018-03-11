@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/gesiel/go-collect/collector/access"
-	"github.com/gesiel/go-collect/collector/subscriber"
+	"github.com/gesiel/go-collect/gocollector/access"
+	"github.com/gesiel/go-collect/gocollector/subscriber"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"

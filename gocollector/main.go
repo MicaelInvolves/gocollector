@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/gesiel/go-collect/collector/access"
-	"github.com/gesiel/go-collect/collector/controllers"
-	"github.com/gesiel/go-collect/collector/database"
-	"github.com/gesiel/go-collect/collector/subscriber"
+	"github.com/gesiel/go-collect/gocollector/access"
+	"github.com/gesiel/go-collect/gocollector/controllers"
+	"github.com/gesiel/go-collect/gocollector/database"
+	"github.com/gesiel/go-collect/gocollector/subscriber"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"gopkg.in/mgo.v2"

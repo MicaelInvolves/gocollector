@@ -5,7 +5,7 @@ import (
 	. "github.com/onsi/gomega"
 
 	"encoding/json"
-	"github.com/gesiel/go-collect/collector/access"
+	"github.com/gesiel/go-collect/gocollector/access"
 	"github.com/labstack/echo"
 	"net/http"
 	"net/http/httptest"

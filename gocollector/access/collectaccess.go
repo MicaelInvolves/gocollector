@@ -2,7 +2,7 @@ package access
 
 import (
 	"errors"
-	"github.com/gesiel/go-collect/collector/utils"
+	"github.com/gesiel/go-collect/gocollector/utils"
 	"time"
 )
 
