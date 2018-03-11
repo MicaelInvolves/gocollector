@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>An Awesome Product!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="/examples/rd-collector.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar is-dark">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/examples">
+                    <span>A Awesome Product</span>
+                </a>
+
+                <div class="navbar-burger" data-target="navBarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div id="navBarMenu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="/examples">
+                        Home
+                    </a>
+                    <a class="navbar-item" href="/examples/price.html">
+                        Pricing
+                    </a>
+                    <a class="navbar-item" href="/examples/about.html">
+                        About
+                    </a>
+                    <a class="navbar-item" href="/examples/contact.html">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    An Awesome Product
+                </h1>
+                <h2 class="subtitle">
+                    Lets pretend...
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Contact</h1>
+
+            <form>
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input id="name" required class="input" type="text">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control has-icons-left">
+                        <input id="email" required class="input" type="email">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="buttons is-right">
+                    <button type="submit" class="button is-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>
+
+<script>
+    document.forms[0].onsubmit = function (event) {
+        event.preventDefault();
+        var xhr = new XMLHttpRequest();
+        var url = "/api/subscribe";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.status === 201 || xhr.status === 200) {
+                document.getElementById('name').value = "";
+                document.getElementById('email').value = "";
+            }
+        };
+        var data = JSON.stringify({
+            "clientId": getCookie('client'),
+            "name": document.getElementById('name').value,
+            "email": document.getElementById('email').value
+        });
+        xhr.send(data);
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>

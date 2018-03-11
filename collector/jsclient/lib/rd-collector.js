@@ -987,7 +987,7 @@ var Main = function () {
       }
     };
 
-    this._gateway = new _accessGateway2.default("//localhost:8080/access", _axios2.default, dateProvider, pathProvider);
+    this._gateway = new _accessGateway2.default("/api/access", _axios2.default, dateProvider, pathProvider);
     this._identifier = new _clientIdentifier2.default(document, dateProvider);
   }
 

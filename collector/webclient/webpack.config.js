@@ -76,8 +76,8 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     }),
     new CopyWebpackPlugin([
-      { from: 'dist', to: '../../static/dist'},
-      { from: 'index.html', to: '../../static/index.html'},
+      { from: 'dist', to: '../../static/dist', force: true},
+      { from: 'index.html', to: '../../static/index.html', force: true},
     ])
   ])
 }
