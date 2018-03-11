@@ -1,4 +1,4 @@
-package collector
+package controllers
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -38,7 +38,7 @@ var _ = Describe("Collector api", func() {
 			request.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
 			context := echo.New().NewContext(request, recorder)
 
-			err := controller.collect(context)
+			err := controller.Collect(context)
 
 			Expect(err).Should(BeNil())
 			Expect(recorder.Code).Should(Equal(http.StatusCreated))
@@ -57,7 +57,7 @@ var _ = Describe("Collector api", func() {
 			request.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
 			context := echo.New().NewContext(request, recorder)
 
-			err := controller.collect(context)
+			err := controller.Collect(context)
 
 			Expect(err).Should(BeNil())
 			Expect(recorder.Code).Should(Equal(http.StatusBadRequest))

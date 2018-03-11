@@ -12,7 +12,7 @@ let plugins = [],
   outputFile;
 
 plugins.push(new webpack.DefinePlugin({
-  'API_PATH': JSON.stringify('//mockedapi.com')
+  'API_PATH': JSON.stringify('//localhost:8080/access')
 }));
 
 if (env === 'build') {
@@ -36,15 +36,15 @@ const config = {
   },
   module: {
     rules: [{
-        test: /(\.jsx|\.js)$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules|bower_components)/
-      },
-      {
-        test: /(\.jsx|\.js)$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/
-      }
+      test: /(\.jsx|\.js)$/,
+      loader: 'babel-loader',
+      exclude: /(node_modules|bower_components)/
+    },
+    {
+      test: /(\.jsx|\.js)$/,
+      loader: 'eslint-loader',
+      exclude: /node_modules/
+    }
     ]
   },
   resolve: {

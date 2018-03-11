@@ -1,4 +1,4 @@
-package collector
+package controllers
 
 import (
 	"testing"
@@ -9,5 +9,5 @@ import (
 
 func TestCollector(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Api Suite")
+	RunSpecs(t, "Controllers Suite")
 }

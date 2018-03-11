@@ -7,6 +7,7 @@
     <title>An Awesome Product!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="rd-collector.min.js"></script>
 </head>
 
 <body>
@@ -59,28 +60,21 @@
         <div class="container">
             <h1 class="title">Contact</h1>
 
-            <form action="" novalidate>
+            <form>
                 <div class="field">
                     <label class="label">Name</label>
                     <div class="control">
-                        <input class="input" type="text">
+                        <input id="name" required class="input" type="text">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Email</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="email">
+                        <input id="email" required class="input" type="email">
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Message</label>
-                    <div class="control">
-                        <textarea class="textarea"></textarea>
                     </div>
                 </div>
 
@@ -93,3 +87,41 @@
 </body>
 
 </html>
+
+<script>
+    document.forms[0].onsubmit = function (event) {
+        event.preventDefault();
+        var xhr = new XMLHttpRequest();
+        var url = "//localhost:8080/subscribe";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.status === 201 || xhr.status === 200) {
+                document.getElementById('name').value = "";
+                document.getElementById('email').value = "";
+            }
+        };
+        var data = JSON.stringify({
+            "clientId": getCookie('client'),
+            "name": document.getElementById('name').value,
+            "email": document.getElementById('email').value
+        });
+        xhr.send(data);
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>

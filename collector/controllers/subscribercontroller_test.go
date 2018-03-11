@@ -1,4 +1,4 @@
-package collector
+package controllers
 
 import (
 	"github.com/gesiel/go-collect/collector/subscriber"
@@ -37,7 +37,7 @@ var _ = Describe("Subscribe api", func() {
 			request.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
 			context := echo.New().NewContext(request, recorder)
 
-			err := controller.subscribe(context)
+			err := controller.Subscribe(context)
 
 			Expect(err).Should(BeNil())
 			Expect(recorder.Code).Should(Equal(http.StatusCreated))
@@ -55,7 +55,7 @@ var _ = Describe("Subscribe api", func() {
 			request.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
 			context := echo.New().NewContext(request, recorder)
 
-			err := controller.subscribe(context)
+			err := controller.Subscribe(context)
 
 			Expect(err).Should(BeNil())
 			Expect(recorder.Code).Should(Equal(http.StatusBadRequest))

@@ -1,4 +1,4 @@
-package collector
+package controllers
 
 import (
 	"github.com/gesiel/go-collect/collector/access"
@@ -11,7 +11,7 @@ type CollectAccessController struct {
 	UseCase *access.CollectAccessUseCase
 }
 
-func (this *CollectAccessController) collect(context echo.Context) error {
+func (this *CollectAccessController) Collect(context echo.Context) error {
 	viewModel := new(AccessViewModel)
 
 	if err := context.Bind(viewModel); err != nil {

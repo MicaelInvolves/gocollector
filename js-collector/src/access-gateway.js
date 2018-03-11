@@ -8,7 +8,7 @@ export default class AccessGateway {
 
   accessFor(clientId) {
     this._axios.post(this._apiPath, {
-      id: clientId,
+      clientId: clientId,
       path: this._pathProvider.get(),
       date: this._dateProvider.get()
     });

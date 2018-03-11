@@ -1,4 +1,4 @@
-package collector
+package controllers
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -37,7 +37,7 @@ var _ = Describe("List subscribers api", func() {
 			request := httptest.NewRequest(echo.GET, "/subscribers", nil)
 			context := echo.New().NewContext(request, recorder)
 
-			err := controller.list(context)
+			err := controller.List(context)
 
 			Expect(err).Should(BeNil())
 			Expect(recorder.Code).Should(Equal(http.StatusOK))
@@ -69,7 +69,7 @@ var _ = Describe("List subscribers api", func() {
 			request := httptest.NewRequest(echo.GET, "/subscribers", nil)
 			context := echo.New().NewContext(request, recorder)
 
-			err := controller.list(context)
+			err := controller.List(context)
 
 			Expect(err).Should(BeNil())
 			Expect(recorder.Code).Should(Equal(http.StatusOK))

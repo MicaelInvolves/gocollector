@@ -1,4 +1,4 @@
-package collector
+package controllers
 
 import (
 	"github.com/gesiel/go-collect/collector/subscriber"
@@ -10,7 +10,7 @@ type SubscribeController struct {
 	UseCase *subscriber.SubscribeUseCase
 }
 
-func (this *SubscribeController) subscribe(context echo.Context) error {
+func (this *SubscribeController) Subscribe(context echo.Context) error {
 	viewModel := &SubscriberViewModel{}
 
 	if err := context.Bind(viewModel); err != nil {

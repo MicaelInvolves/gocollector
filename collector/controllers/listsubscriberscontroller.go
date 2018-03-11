@@ -1,4 +1,4 @@
-package collector
+package controllers
 
 import (
 	"github.com/gesiel/go-collect/collector/subscriber"
@@ -10,7 +10,7 @@ type ListSubscribersController struct {
 	UseCase *subscriber.ListSubscribersAccessDataUseCase
 }
 
-func (this *ListSubscribersController) list(context echo.Context) error {
+func (this *ListSubscribersController) List(context echo.Context) error {
 	response, err := this.UseCase.List()
 	if err != nil {
 		return err

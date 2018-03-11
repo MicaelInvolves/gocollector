@@ -987,7 +987,7 @@ var Main = function () {
       }
     };
 
-    this._gateway = new _accessGateway2.default("//mockedapi.com", _axios2.default, dateProvider, pathProvider);
+    this._gateway = new _accessGateway2.default("//localhost:8080/access", _axios2.default, dateProvider, pathProvider);
     this._identifier = new _clientIdentifier2.default(document, dateProvider);
   }
 
@@ -997,10 +997,7 @@ var Main = function () {
       var _this = this;
 
       document.addEventListener('DOMContentLoaded', function (event) {
-        var client = _this._identifier.id();
-
-        _this._gateway.accessFor(client);
-        console.log('Collecting access information...', client);
+        _this._gateway.accessFor(_this._identifier.id());
       });
     }
   }]);
@@ -1008,9 +1005,7 @@ var Main = function () {
   return Main;
 }();
 
-var main = new Main();
-
-main.listen();
+new Main().listen();
 
 /***/ }),
 /* 9 */
@@ -1929,7 +1924,7 @@ var AccessGateway = function () {
     key: "accessFor",
     value: function accessFor(clientId) {
       this._axios.post(this._apiPath, {
-        id: clientId,
+        clientId: clientId,
         path: this._pathProvider.get(),
         date: this._dateProvider.get()
       });

@@ -40,7 +40,7 @@ describe('AccessGateway', () => {
 
     axiosMock.path.should.be.equal(apiPath);
     axiosMock.data.should.be.deep.equal({
-      id: 'client-id',
+      clientId: 'client-id',
       path: path,
       date: date
     });
