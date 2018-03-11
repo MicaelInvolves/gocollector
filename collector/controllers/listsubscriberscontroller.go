@@ -29,8 +29,8 @@ type SubscriberAccessDataViewModel struct {
 
 func viewModel(response *subscriber.ListSubscribersAccessDataResponse) []*SubscriberAccessDataViewModel {
 	result := make([]*SubscriberAccessDataViewModel, len(response.SubscribersAccessData))
-	for i := range response.SubscribersAccessData {
-		result[i] = viewModelFor(response.SubscribersAccessData[i])
+	for i, accessData := range response.SubscribersAccessData {
+		result[i] = viewModelFor(accessData)
 	}
 	return result
 }
@@ -48,7 +48,7 @@ func viewModelFor(accessData *subscriber.SubscribersAccessData) *SubscriberAcces
 func extractPages(accessData *subscriber.SubscribersAccessData) string {
 	pages := accessData.AccessPaths[0]
 	for i := 1; i < len(accessData.AccessPaths); i++ {
-		pages += ", " + accessData.AccessPaths[1]
+		pages += ", " + accessData.AccessPaths[i]
 	}
 	return pages
 }

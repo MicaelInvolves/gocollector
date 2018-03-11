@@ -16,13 +16,6 @@ type AccessGatewayMongo struct {
 	session *mgo.Session
 }
 
-type accessDTO struct {
-	ClientId   string
-	Path       string
-	Date       time.Time
-	Identified bool
-}
-
 func (this *SubscriberGatewayMongo) Save(subscriber *subscriber.Subscriber) error {
 	session := this.session.Copy()
 	defer session.Close()
@@ -52,8 +45,66 @@ func (this *SubscriberGatewayMongo) Save(subscriber *subscriber.Subscriber) erro
 	return err
 }
 
-func (*SubscriberGatewayMongo) All() ([]*subscriber.SubscribersAccessData, error) {
-	return []*subscriber.SubscribersAccessData{}, nil
+type dto struct {
+	Id         string    `bson:"_id,omitempty"`
+	ClientId   string    `bson:"clientId"`
+	Path       string    `bson:"path"`
+	Date       time.Time `bson:"date"`
+	Identified bool      `bson:"identified"`
+	Name       string    `bson:"name"`
+	Email      string    `bson:"email"`
+}
+
+func (this *SubscriberGatewayMongo) All() ([]*subscriber.SubscribersAccessData, error) {
+	session := this.session.Copy()
+	defer session.Close()
+
+	iter := session.DB("collector").C("access_data").Find(bson.M{
+		"identified": true,
+	}).Iter()
+
+	resultMap := map[string]*subscriber.SubscribersAccessData{}
+	row := dto{}
+	for iter.Next(&row) {
+		clientId := row.ClientId
+		data := resultMap[clientId]
+		if data == nil {
+			data = &subscriber.SubscribersAccessData{
+				Subscriber: &subscriber.Subscriber{
+					ClientId: row.ClientId,
+					Email:    row.Email,
+					Name:     row.Name,
+				},
+				AccessCount: 0,
+				AccessPaths: []string{},
+			}
+			resultMap[clientId] = data
+		}
+
+		data.AccessCount++
+		if !contains(data.AccessPaths, row.Path) {
+			data.AccessPaths = append(data.AccessPaths, row.Path)
+		}
+	}
+
+	if iter.Err() != nil {
+		return nil, iter.Err()
+	}
+
+	var result []*subscriber.SubscribersAccessData
+	for _, value := range resultMap {
+		result = append(result, value)
+	}
+	return result, nil
+}
+
+func contains(s []string, v string) bool {
+	for _, e := range s {
+		if e == v {
+			return true
+		}
+	}
+	return false
 }
 
 func (this *AccessGatewayMongo) Save(access *access.Access) error {
