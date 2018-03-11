@@ -21,7 +21,7 @@ func (this *SubscriberGatewayMongo) Save(subscriber *subscriber.Subscriber) erro
 	session := this.session.Copy()
 	defer session.Close()
 
-	db := session.DB("heorku_cf8hb4sh")
+	db := session.DB("heroku_cf8hb4sh")
 
 	_, err := db.C("access_data").UpdateAll(bson.M{
 		"clientId": subscriber.ClientId,
@@ -60,7 +60,7 @@ func (this *SubscriberGatewayMongo) All() ([]*subscriber.SubscribersAccessData, 
 	session := this.session.Copy()
 	defer session.Close()
 
-	iter := session.DB("heorku_cf8hb4sh").C("access_data").Find(bson.M{
+	iter := session.DB("heroku_cf8hb4sh").C("access_data").Find(bson.M{
 		"identified": true,
 	}).Iter()
 
@@ -112,7 +112,7 @@ func (this *AccessGatewayMongo) Save(access *access.Access) error {
 	session := this.session.Copy()
 	defer session.Close()
 
-	collection := session.DB("heorku_cf8hb4sh").C("access_data")
+	collection := session.DB("heroku_cf8hb4sh").C("access_data")
 
 	exists := map[string]*interface{}{}
 	err := collection.Find(bson.M{"clientId": access.ClientId}).One(&exists)
