@@ -74,6 +74,7 @@ var _ = Describe("Subscribe api", func() {
 type SubscriberGatewayInMemory struct {
 	IdCount int
 	Db      map[string]*subscriber.Subscriber
+	AllData []*subscriber.SubscribersAccessData
 }
 
 func (this *SubscriberGatewayInMemory) Save(subscriber *subscriber.Subscriber) error {
@@ -88,5 +89,5 @@ func (this *SubscriberGatewayInMemory) Get(id int) *subscriber.Subscriber {
 }
 
 func (this *SubscriberGatewayInMemory) All() ([]*subscriber.SubscribersAccessData, error) {
-	return nil, nil
+	return this.AllData, nil
 }

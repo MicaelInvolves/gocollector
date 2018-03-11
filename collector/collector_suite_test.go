@@ -9,5 +9,5 @@ import (
 
 func TestCollector(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Collector Suite")
+	RunSpecs(t, "Api Suite")
 }
