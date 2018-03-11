@@ -6,9 +6,9 @@ import (
 	"github.com/gesiel/go-collect/collector/database"
 	"github.com/gesiel/go-collect/collector/subscriber"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"gopkg.in/mgo.v2"
 	"os"
-	"github.com/labstack/echo/middleware"
 )
 
 const databaseHost = "DATABASE_URL"
@@ -47,9 +47,15 @@ func main() {
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
-	e.POST("/access", collectAccessCtrl.Collect)
-	e.POST("/subscribe", subscribeCtrl.Subscribe)
-	e.GET("/subscribers", listSubscribersCtrl.List)
+	e.Use(middleware.StaticWithConfig(middleware.StaticConfig{
+		Root:   "static",
+		Browse: true,
+		HTML5:  true,
+	}))
+
+	e.POST("/api/access", collectAccessCtrl.Collect)
+	e.POST("/api/subscribe", subscribeCtrl.Subscribe)
+	e.GET("/api/subscribers", listSubscribersCtrl.List)
 
 	e.Start(":" + port)
 }
