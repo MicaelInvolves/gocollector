@@ -5,12 +5,15 @@ type ListSubscribersAccessDataUseCase struct {
 }
 
 func (this *ListSubscribersAccessDataUseCase) List() (*ListSubscribersAccessDataResponse, error) {
-	subscribers, _ := this.Gateway.All()
+	subscribers, err := this.Gateway.All()
+	if err != nil {
+		return nil, err
+	}
 	return &ListSubscribersAccessDataResponse{
-		Subscribers: subscribers,
+		SubscribersAccessData: subscribers,
 	}, nil
 }
 
 type ListSubscribersAccessDataResponse struct {
-	Subscribers []*SubscribersAccessData
+	SubscribersAccessData []*SubscribersAccessData
 }

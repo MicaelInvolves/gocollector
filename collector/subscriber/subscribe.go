@@ -2,7 +2,7 @@ package subscriber
 
 import (
 	"errors"
-	"github.com/gesiel/go-collect/webapp/utils"
+	"github.com/gesiel/go-collect/collector/utils"
 )
 
 var MissingClientIdError = errors.New("subscriber missing field: ClientId")
@@ -31,13 +31,13 @@ func (this *SubscribeUseCase) Subscribe(input SubscribeInput) (*SubscribeRespons
 }
 
 func validateInput(input SubscribeInput) error {
-	if !utils.IsValidValue(input.ClientId()) {
+	if !utils.IsValidValue(input.GetClientId()) {
 		return MissingClientIdError
 	}
-	if !utils.IsValidValue(input.Name()) {
+	if !utils.IsValidValue(input.GetName()) {
 		return MissingNameError
 	}
-	if !utils.IsValidValue(input.Email()) {
+	if !utils.IsValidValue(input.GetEmail()) {
 		return MissingEmailError
 	}
 	return nil
@@ -45,16 +45,16 @@ func validateInput(input SubscribeInput) error {
 
 func createSubscriberFor(input SubscribeInput) *Subscriber {
 	return &Subscriber{
-		ClientId: input.ClientId(),
-		Name:     input.Name(),
-		Email:    input.Email(),
+		ClientId: input.GetClientId(),
+		Name:     input.GetName(),
+		Email:    input.GetEmail(),
 	}
 }
 
 type SubscribeInput interface {
-	ClientId() string
-	Name() string
-	Email() string
+	GetClientId() string
+	GetName() string
+	GetEmail() string
 }
 
 type SubscribeResponse struct {

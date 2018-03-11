@@ -1,10 +1,8 @@
-package utils_test
+package utils
 
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-
-	. "github.com/gesiel/go-collect/webapp/utils"
 )
 
 var _ = Describe("String utils", func() {

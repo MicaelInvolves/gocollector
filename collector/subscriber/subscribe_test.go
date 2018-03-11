@@ -1,11 +1,10 @@
-package subscriber_test
+package subscriber
 
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"errors"
-	. "github.com/gesiel/go-collect/webapp/subscriber"
 )
 
 var _ = Describe("Subscribe Use Case", func() {
@@ -100,15 +99,15 @@ type SubscribeInputMock struct {
 	email    string
 }
 
-func (this *SubscribeInputMock) ClientId() string {
+func (this *SubscribeInputMock) GetClientId() string {
 	return this.clientId
 }
 
-func (this *SubscribeInputMock) Name() string {
+func (this *SubscribeInputMock) GetName() string {
 	return this.name
 }
 
-func (this *SubscribeInputMock) Email() string {
+func (this *SubscribeInputMock) GetEmail() string {
 	return this.email
 }
 

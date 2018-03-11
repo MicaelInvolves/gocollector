@@ -2,7 +2,7 @@ package access
 
 import (
 	"errors"
-	"github.com/gesiel/go-collect/webapp/utils"
+	"github.com/gesiel/go-collect/collector/utils"
 	"time"
 )
 
@@ -35,17 +35,17 @@ type CollectAccessResponse struct {
 }
 
 type CollectAccessInput interface {
-	ClientId() string
-	Path() string
-	Date() time.Time
+	GetClientId() string
+	GetPath() string
+	GetDate() time.Time
 }
 
 func validateInput(input CollectAccessInput) error {
-	if !utils.IsValidValue(input.ClientId()) {
+	if !utils.IsValidValue(input.GetClientId()) {
 		return MissingClientIdError
 	}
 
-	if !utils.IsValidValue(input.Path()) {
+	if !utils.IsValidValue(input.GetPath()) {
 		return MissingPathError
 	}
 
@@ -54,9 +54,9 @@ func validateInput(input CollectAccessInput) error {
 
 func createAccessFor(input CollectAccessInput) *Access {
 	access := &Access{
-		ClientId: input.ClientId(),
-		Path:     input.Path(),
-		Date:     input.Date(),
+		ClientId: input.GetClientId(),
+		Path:     input.GetPath(),
+		Date:     input.GetDate(),
 	}
 	return access
 }

@@ -1,17 +1,16 @@
-package access_test
+package access
 
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"errors"
-	"github.com/gesiel/go-collect/webapp/access"
 	"time"
 )
 
 var _ = Describe("Collect Access Use Case", func() {
 	var (
-		useCase    *access.CollectAccessUseCase
+		useCase    *CollectAccessUseCase
 		input      *CollectAccessInputMock
 		gateway    *AccessGatewayMock
 		mockedDate time.Time
@@ -21,7 +20,7 @@ var _ = Describe("Collect Access Use Case", func() {
 
 		BeforeEach(func() {
 			gateway = &AccessGatewayMock{}
-			useCase = &access.CollectAccessUseCase{
+			useCase = &CollectAccessUseCase{
 				Gateway: gateway,
 			}
 			mockedDate = time.Date(2018, time.March, 10, 14, 14, 0, 0, time.Local)
@@ -59,26 +58,26 @@ var _ = Describe("Collect Access Use Case", func() {
 		It("Should validate missing ClientId", func() {
 			input = NewCollectAccessInputMock("", "path/to/resource", mockedDate)
 			response, err := useCase.Collect(input)
-			assertErrorResponse(response, err, access.MissingClientIdError, "Access missing field: ClientId")
+			assertErrorResponse(response, err, MissingClientIdError, "Access missing field: ClientId")
 
 			input = NewCollectAccessInputMock("   ", "path/to/resource", mockedDate)
 			response, err = useCase.Collect(input)
-			assertErrorResponse(response, err, access.MissingClientIdError, "Access missing field: ClientId")
+			assertErrorResponse(response, err, MissingClientIdError, "Access missing field: ClientId")
 		})
 
 		It("Should validate missing Path", func() {
 			input = NewCollectAccessInputMock("ClientId", "", mockedDate)
 			response, err := useCase.Collect(input)
-			assertErrorResponse(response, err, access.MissingPathError, "Access missing field: Path")
+			assertErrorResponse(response, err, MissingPathError, "Access missing field: Path")
 
 			input = NewCollectAccessInputMock("ClientId", "  ", mockedDate)
 			response, err = useCase.Collect(input)
-			assertErrorResponse(response, err, access.MissingPathError, "Access missing field: Path")
+			assertErrorResponse(response, err, MissingPathError, "Access missing field: Path")
 		})
 	})
 })
 
-func assertErrorResponse(response *access.CollectAccessResponse, err, expectedError error, expectedMessage string) {
+func assertErrorResponse(response *CollectAccessResponse, err, expectedError error, expectedMessage string) {
 	Expect(response).Should(BeNil())
 	Expect(err).Should(Equal(expectedError))
 	Expect(err.Error()).Should(Equal(expectedMessage))
@@ -94,15 +93,15 @@ type CollectAccessInputMock struct {
 	date     time.Time
 }
 
-func (this *CollectAccessInputMock) ClientId() string {
+func (this *CollectAccessInputMock) GetClientId() string {
 	return this.clientId
 }
 
-func (this *CollectAccessInputMock) Path() string {
+func (this *CollectAccessInputMock) GetPath() string {
 	return this.path
 }
 
-func (this *CollectAccessInputMock) Date() time.Time {
+func (this *CollectAccessInputMock) GetDate() time.Time {
 	return this.date
 }
 
@@ -117,12 +116,12 @@ func NewCollectAccessInputMock(id, path string, date time.Time) *CollectAccessIn
 /* ======== GATEWAY ======== */
 
 type AccessGatewayMock struct {
-	SavedAccess *access.Access
+	SavedAccess *Access
 	SaveCount   int
 	Err         error
 }
 
-func (this *AccessGatewayMock) Save(access *access.Access) error {
+func (this *AccessGatewayMock) Save(access *Access) error {
 	if this.Err != nil {
 		return this.Err
 	}

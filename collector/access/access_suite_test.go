@@ -1,4 +1,4 @@
-package subscriber_test
+package access
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestContacts(t *testing.T) {
+func TestAccess(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Subscriber Suite")
+	RunSpecs(t, "Access Suite")
 }
