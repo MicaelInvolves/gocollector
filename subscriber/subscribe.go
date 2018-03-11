@@ -2,7 +2,8 @@ package subscriber
 
 import (
 	"errors"
-	"github.com/gesiel/go-collect/gocollector/utils"
+
+	"github.com/gesiel/gocollector/utils"
 )
 
 var MissingClientIdError = errors.New("subscriber missing field: ClientId")

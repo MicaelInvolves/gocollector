@@ -1,14 +1,15 @@
 package main
 
 import (
-	"github.com/gesiel/go-collect/gocollector/access"
-	"github.com/gesiel/go-collect/gocollector/controllers"
-	"github.com/gesiel/go-collect/gocollector/database"
-	"github.com/gesiel/go-collect/gocollector/subscriber"
+	"os"
+
+	"github.com/gesiel/gocollector/access"
+	"github.com/gesiel/gocollector/controllers"
+	"github.com/gesiel/gocollector/database"
+	"github.com/gesiel/gocollector/subscriber"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"gopkg.in/mgo.v2"
-	"os"
 )
 
 const databaseHost = "DATABASE_URL"

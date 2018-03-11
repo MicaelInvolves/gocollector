@@ -2,8 +2,9 @@ package access
 
 import (
 	"errors"
-	"github.com/gesiel/go-collect/gocollector/utils"
 	"time"
+
+	"github.com/gesiel/gocollector/utils"
 )
 
 var MissingClientIdError = errors.New("Access missing field: ClientId")

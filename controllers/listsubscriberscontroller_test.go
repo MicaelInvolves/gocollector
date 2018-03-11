@@ -5,10 +5,11 @@ import (
 	. "github.com/onsi/gomega"
 
 	"encoding/json"
-	"github.com/gesiel/go-collect/gocollector/subscriber"
-	"github.com/labstack/echo"
 	"net/http"
 	"net/http/httptest"
+
+	"github.com/gesiel/gocollector/subscriber"
+	"github.com/labstack/echo"
 )
 
 var _ = Describe("List subscribers api", func() {

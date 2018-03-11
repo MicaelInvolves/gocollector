@@ -1,11 +1,12 @@
 package database
 
 import (
-	"github.com/gesiel/go-collect/gocollector/access"
-	"github.com/gesiel/go-collect/gocollector/subscriber"
+	"time"
+
+	"github.com/gesiel/gocollector/access"
+	"github.com/gesiel/gocollector/subscriber"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"time"
 )
 
 type SubscriberGatewayMongo struct {

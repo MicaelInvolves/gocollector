@@ -5,16 +5,18 @@ import (
 	. "github.com/onsi/gomega"
 
 	"encoding/json"
-	"github.com/gesiel/go-collect/gocollector/access"
-	"github.com/labstack/echo"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"strings"
+
+	"github.com/gesiel/gocollector/access"
+	"github.com/labstack/echo"
 )
 
 const validAccessJson = `{ "clientId": "id", "path": "path/to/some/resource", "date" : "2018-03-11T00:00:00Z" }`
 const invalidAccessJson = `{ "path": "path/to/some/resource" }`
+
 var _ = Describe("Collector api", func() {
 	Context("Collect access", func() {
 		var controller *CollectAccessController

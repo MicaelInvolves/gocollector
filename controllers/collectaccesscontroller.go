@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"github.com/gesiel/go-collect/gocollector/access"
-	"github.com/labstack/echo"
 	"net/http"
 	"time"
+
+	"github.com/gesiel/gocollector/access"
+	"github.com/labstack/echo"
 )
 
 type CollectAccessController struct {

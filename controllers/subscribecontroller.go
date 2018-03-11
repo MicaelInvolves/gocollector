@@ -1,9 +1,10 @@
 package controllers
 
 import (
-	"github.com/gesiel/go-collect/gocollector/subscriber"
-	"github.com/labstack/echo"
 	"net/http"
+
+	"github.com/gesiel/gocollector/subscriber"
+	"github.com/labstack/echo"
 )
 
 type SubscribeController struct {

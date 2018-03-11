@@ -1,14 +1,15 @@
 package controllers
 
 import (
-	"github.com/gesiel/go-collect/gocollector/subscriber"
-	"github.com/labstack/echo"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"strings"
+
+	"github.com/gesiel/gocollector/subscriber"
+	"github.com/labstack/echo"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 const validSubscriberJson = `{ "clientId": "id", "name": "Jay", "email": "valid@email.com" }`
