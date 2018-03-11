@@ -12,12 +12,19 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
-const databaseHost = "DATABASE_URL"
+const databaseHost = "MONGODB_URI"
 const port = "PORT"
 
 func main() {
 	host := os.Getenv(databaseHost)
+	if host == "" {
+		host = "localhost"
+	}
+
 	port := os.Getenv(port)
+	if port == "" {
+		port = "8080"
+	}
 
 	session, err := mgo.Dial(host)
 	if err != nil {
