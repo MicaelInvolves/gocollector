@@ -21,6 +21,15 @@ This project collects users web surfing data from web sites configured with [its
 
 **Atentition: You need a Mongo DB up and running to proceed.**
 
-Edit `.env` with your mongo url and app port. Then, execute `go run main.go`. You can open your browser on `http://localhost:PORT/` to list all collected data. If was no collected data, surf a little bit on `http://localhost:PORT/examples` and fill up the contact page.
+1. Edit `.env` with your mongo url and app port. 
+2. Run the tests with 
+```
+go test ./...
+```
+3. Run the app with
+``` 
+go run main.go
+```
+4. Open your browser on `http://localhost:PORT/` to list all collected data. If was no collected data, surf a little bit on `http://localhost:PORT/examples` and fill up the contact page.
 
 A version of this tool is up and running on heroku. Just visit `https://gocollector.herokuapp.com/examples` and `https://gocollector.herokuapp.com/`.
