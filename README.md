@@ -20,21 +20,28 @@ A Go (Rest API) + Vue (Web Client) experiment.
 
 This project collects users web surfing data from web sites configured with [its js client](https://github.com/gesiel/gocollector/tree/master/jsclient). A Go Rest API receives all the user navigation data and a Vue web client shows all collected data.
 
+### Packages
+1. Both `access` and `subscriber` are domain specific logic. These packages depend only on abstractions. All dependencies are injected with DI and IC.
+2. Package `controllers` stands for the web api classes.
+3. `databases` stores all database gateways implementations. It's basic Mongo queries.
+4. All Go dependencies are in the `vendor` folder.
+5. The `webclient` folder stores the Vue web client. Running `npm run build` in this folder updates the `static` folder content with a minified version of the web client.
+5. The JS lib stay on the `jsclient`folder. It collects and sends information to the backend.
+
 ## Running
 
 **Atentition: You need a Mongo DB up and running to proceed.**
 
-1. Edit `.env` with your mongo url and app port. 
-2. Run the tests with 
+1. Run the tests with 
 ```
 go test ./...
 ```
-3. Run the app with
+2. Run the app with
 ``` 
-go run main.go
+PORT=8080 MONGODB_URI=localhost go run main.go
 ```
-4. Open your browser on `http://localhost:PORT/` to list all collected data. If was no collected data, surf a little bit on `http://localhost:PORT/examples` and fill up the contact page.
+3. Open your browser on `http://localhost:8080/` to list all collected data. If was no collected data, surf a little bit on `http://localhost:8080/examples` and fill up the contact page.
 
 A version of this tool is up and running on heroku. Just visit `https://gocollector.herokuapp.com/examples` and `https://gocollector.herokuapp.com/`.
 
-To run the JS Lib tests, click [here](https://github.com/gesiel/gocollector/tree/master/jsclient).
+To run the JS lib tests, see [here](https://github.com/gesiel/gocollector/tree/master/jsclient).
