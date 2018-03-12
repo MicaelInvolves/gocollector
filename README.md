@@ -33,3 +33,5 @@ go run main.go
 4. Open your browser on `http://localhost:PORT/` to list all collected data. If was no collected data, surf a little bit on `http://localhost:PORT/examples` and fill up the contact page.
 
 A version of this tool is up and running on heroku. Just visit `https://gocollector.herokuapp.com/examples` and `https://gocollector.herokuapp.com/`.
+
+To run the JS Lib tests, click [here](https://github.com/gesiel/gocollector/tree/master/jsclient).
