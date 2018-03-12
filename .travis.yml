@@ -8,6 +8,6 @@ script:
   - go get github.com/modocache/gover
   - go get github.com/mattn/goveralls
   - go get github.com/onsi/ginkgo
-  - ginkgo -r -v -cover
+  - go test -v -cover ./... -coverprofile=coverage.out
   - gover
-  - goveralls -service=travis-ci -coverprofile=gover.coverprofile -repotoken=4fMYoZk0VmlhjD1RVNStLpprUXJckdCd6
+  - goveralls -service=travis-ci -coverprofile=coverage.out -repotoken=4fMYoZk0VmlhjD1RVNStLpprUXJckdCd6
