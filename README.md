@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/gesiel/gocollector.svg?branch=master)](https://travis-ci.org/gesiel/gocollector)
+[![Coverage Status](https://coveralls.io/repos/github/gesiel/gocollector/badge.svg)](https://coveralls.io/github/gesiel/gocollector)
+
 # Go Collector
 
 A Go (Rest API) + Vue (Web Client) experiment.
