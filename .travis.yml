@@ -6,6 +6,7 @@ go:
 
 script:
   - go get github.com/modocache/gover
+  - go get github.com/mattn/goveralls
   - go test ./... -cover
   - gover
-  - goveralls -coverprofile=gover.coverprofile
+  - goveralls -service=travis-ci -coverprofile=gover.coverprofile -repotoken=4fMYoZk0VmlhjD1RVNStLpprUXJckdCd6
